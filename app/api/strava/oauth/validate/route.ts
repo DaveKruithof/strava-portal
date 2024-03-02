@@ -1,7 +1,11 @@
-import type { NextRequest } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET({ nextUrl }: NextRequest) {
   const code = nextUrl.searchParams.get('code') || '';
+
+  if (!code)
+    return NextResponse.redirect(nextUrl.origin + '/api/strava/oauth/login');
+
   const data = await fetch(
     'https://www.strava.com/oauth/token?' +
       new URLSearchParams({
@@ -20,6 +24,4 @@ export async function GET({ nextUrl }: NextRequest) {
       console.error('strava oauth validation error: ' + e);
       return false;
     });
-
-  console.log(data);
 }
