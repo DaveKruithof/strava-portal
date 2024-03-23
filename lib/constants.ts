@@ -1,11 +1,13 @@
 const STRAVA_CLIENT_ID = process.env.STRAVA_CLIENT_ID;
 const STRAVA_CLIENT_SECRET = process.env.STRAVA_CLIENT_SECRET;
 const STRAVA_CLUB_ID = process.env.STRAVA_CLUB_ID;
+const STRAVA_WEBHOOK_SECRET = process.env.STRAVA_WEBHOOK_SECRET;
 const PG_USER = process.env.PG_USER;
 const PG_PASSWORD = process.env.PG_PASSWORD;
 const PG_HOST = process.env.PG_HOST;
 const PG_DB_NAME = process.env.PG_DB_NAME;
 const JWT_SECRET = process.env.JWT_SECRET;
+const URL = process.env.URL;
 
 export function getStravaClientId(): string {
   if (!STRAVA_CLIENT_ID || STRAVA_CLIENT_ID.length === 0) {
@@ -29,6 +31,14 @@ export function getStravaClubId(): string {
   }
 
   return STRAVA_CLUB_ID;
+}
+
+export function getStravaWebhookSecret(): string {
+  if (!STRAVA_WEBHOOK_SECRET || STRAVA_WEBHOOK_SECRET.length === 0) {
+    throw new Error('env STRAVA_WEBHOOK_SECRET not set');
+  }
+
+  return STRAVA_WEBHOOK_SECRET;
 }
 
 export function getPostgresUser(): string {
@@ -69,6 +79,14 @@ export function getJwtSecret(): string {
   }
 
   return JWT_SECRET;
+}
+
+export function getUrl(): string {
+  if (!URL || URL.length === 0) {
+    throw new Error('env URL not set');
+  }
+
+  return URL;
 }
 
 export const USER_COOKIE_NAME = 'user';
