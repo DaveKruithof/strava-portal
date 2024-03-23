@@ -1,11 +1,14 @@
-export type StravaOauth = {
+export interface StravaOauth {
   token_type: string;
+  access_token: string;
   expires_at: number;
   expires_in: number;
   refresh_token: string;
-  access_token: string;
+}
+
+export interface StravaOauthAuthorize extends StravaOauth {
   athlete: Athlete;
-};
+}
 
 export type StravaApiError = {
   resource: string;
@@ -41,7 +44,7 @@ export type Athlete = {
   follower: null;
 };
 
-export type Group = {
+export type Club = {
   id: number;
   resource_state: number;
   name: string;

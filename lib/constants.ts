@@ -72,3 +72,5 @@ export function getJwtSecret(): string {
 }
 
 export const USER_COOKIE_NAME = 'user';
+
+export const STRAVA_OAUTH_LOGIN_PATH = '/api/strava/oauth/login';

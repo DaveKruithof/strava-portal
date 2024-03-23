@@ -1,6 +1,6 @@
+import 'dotenv/config';
 import getConnectionString from '@/utils/db/getConnectionString';
 import { neon } from '@neondatabase/serverless';
-import 'dotenv/config';
 import { drizzle } from 'drizzle-orm/neon-http';
 import { migrate } from 'drizzle-orm/neon-http/migrator';
 

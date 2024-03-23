@@ -1,9 +1,9 @@
-import { Group, StravaOauth } from '.';
+import { Club, StravaOauth, StravaOauthAuthorize } from '.';
 import { getStravaClientId, getStravaClientSceret } from '../constants';
 
 export async function validateOauthCode(
   code: string
-): Promise<StravaOauth | false> {
+): Promise<StravaOauthAuthorize | false> {
   const path =
     '/oauth/token?' +
     new URLSearchParams({
@@ -13,11 +13,26 @@ export async function validateOauthCode(
       grant_type: 'authorization_code',
     });
 
+  return request<StravaOauthAuthorize>(path).catch(() => false);
+}
+
+export async function refreshOauthCode(
+  code: string
+): Promise<StravaOauth | false> {
+  const path =
+    '/oauth/token?' +
+    new URLSearchParams({
+      client_id: getStravaClientId(),
+      client_secret: getStravaClientSceret(),
+      code,
+      grant_type: 'refresh_token',
+    });
+
   return request<StravaOauth>(path).catch(() => false);
 }
 
-export async function getGroups(bearer: string): Promise<Group[] | false> {
-  return request<Group[]>('/api/v3/athlete/clubs', {
+export async function getClubs(bearer: string): Promise<Club[] | false> {
+  return request<Club[]>('/athlete/clubs', {
     method: 'GET',
     headers: { Authorization: `Bearer ${bearer}` },
   }).catch(() => false);
@@ -28,7 +43,7 @@ async function request<SuccessType>(
   options?: { method?: string; headers?: { [key: string]: string } }
 ): Promise<SuccessType> {
   try {
-    const res = await fetch('https://www.strava.com' + path, {
+    const res = await fetch('https://www.strava.com/api/v3' + path, {
       method: options?.method ?? 'POST',
       headers: options?.headers ?? {},
       next: { revalidate: 0 },

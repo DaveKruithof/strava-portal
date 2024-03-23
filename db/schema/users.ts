@@ -8,6 +8,7 @@ export const users = pgTable('users', {
   avatar: varchar('avatar', { length: 256 }),
   refresh_token: varchar('refresh_token', { length: 256 }),
   access_token: varchar('access_token', { length: 256 }),
+  expires: timestamp('expires'),
   updated_at: timestamp('updated_at').defaultNow(),
   created_at: timestamp('created_at').defaultNow(),
 });

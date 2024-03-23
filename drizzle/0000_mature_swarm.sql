@@ -6,6 +6,7 @@ CREATE TABLE IF NOT EXISTS "users" (
 	"avatar" varchar(256),
 	"refresh_token" varchar(256),
 	"access_token" varchar(256),
+	"expires" timestamp,
 	"updated_at" timestamp DEFAULT now(),
 	"created_at" timestamp DEFAULT now()
 );
