@@ -35,7 +35,12 @@ export async function GET({ nextUrl }: NextRequest) {
               expires: new Date(validatedCode.expires_at * 1000),
             };
 
-            if (user) return db.update(users).set(userObject).returning();
+            if (user)
+              return db
+                .update(users)
+                .set(userObject)
+                .where(eq(users.strava_id, userObject.strava_id))
+                .returning();
             return db.insert(users).values(userObject).returning();
           })
           .then((users) => users[0])
