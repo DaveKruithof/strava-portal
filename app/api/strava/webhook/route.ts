@@ -25,4 +25,6 @@ export async function GET({ nextUrl }: NextRequest) {
 export async function POST(req: NextRequest) {
   const payload = await req.json();
   console.log(payload);
+
+  return NextResponse.json({});
 }
