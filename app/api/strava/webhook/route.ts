@@ -21,3 +21,8 @@ export async function GET({ nextUrl }: NextRequest) {
 
   return NextResponse.json({ 'hub.challenge': challenge });
 }
+
+export async function POST(req: NextRequest) {
+  const payload = await req.json();
+  console.log(payload);
+}
